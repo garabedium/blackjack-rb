@@ -1,5 +1,7 @@
 class Deck
 
+  attr_reader :deck
+
 	SUITS = ['♦', '♣', '♠', '♥']
 	RANKS = [2,3,4,5,6,7,8,9,10,'J','Q','K','A']
   FACE_CARD_VALUE = 10
@@ -11,19 +13,23 @@ class Deck
     'A': ACE_CARD_VALUE
   }
 
-  def initialize()
-    @deck = build_deck().shuffle
-    binding.pry
+  def initialize
+    @deck = build_deck.shuffle
   end
 
   def build_deck
-		deck = SUITS.map { |suit|
-			RANKS.map { |rank|
+    deck = []
+		SUITS.each { |suit|
+			RANKS.each { |rank|
         card_value = FACE_CARDS[rank] || rank
-				Card.new(suit: suit, rank: rank, value: card_value)
+				deck.push(Card.new(suit: suit, rank: rank, value: card_value))
 			}
 		}
-    deck[0]
+    deck
+  end
+
+  def deal_card
+    @deck.shift(1)[0]
   end
 
 end
