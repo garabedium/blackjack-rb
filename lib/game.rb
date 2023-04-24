@@ -6,8 +6,4 @@ class Game
 		@name = name
 	end
 
-	def welcome
-		"Let's play #{@name}!\n\n"
-	end
-
 end

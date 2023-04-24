@@ -21,7 +21,7 @@ class Deck
     deck = []
 		SUITS.each { |suit|
 			RANKS.each { |rank|
-        card_value = FACE_CARDS[rank] || rank
+        card_value = (rank.class == String) ? FACE_CARDS[rank.to_sym] : rank
 				deck.push(Card.new(suit: suit, rank: rank, value: card_value))
 			}
 		}

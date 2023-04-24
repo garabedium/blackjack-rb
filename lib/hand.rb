@@ -5,12 +5,18 @@ class Hand
     @cards = []
   end
 
-  def show_hand(player_name:)
-    text = "#{player_name}: \n"
-    @cards.each { |card| 
+  def get_hand
+    text = ""
+    @cards.each { |card|
       text += "#{card.display_text} "
     }
-    puts text + "\n\n"
+   text
+  end
+
+  def get_score
+    @cards.reduce(0) { |score, card|
+      score + card.value
+    }
   end
 
 end
