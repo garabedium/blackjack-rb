@@ -11,6 +11,13 @@ class Player
   end
 
   def take_card(card:)
+    # Check for Ace before pushing card:
+    if card.ace
+      temp_score = @hand.get_score + card.value
+      if temp_score > 21
+        card.set_ace_value
+      end
+    end
     @hand.cards.push(card)
   end
 

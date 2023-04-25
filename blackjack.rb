@@ -1,4 +1,4 @@
-require 'pry'
+require 'byebug'
 require_relative 'lib/game'
 require_relative 'lib/deck'
 require_relative 'lib/card'
@@ -13,7 +13,6 @@ deck = Deck.new
 player = Player.new
 dealer = Dealer.new(name: 'Dealer')
 display = Display.new
-
 game_over = false
 
 display.welcome(name: game.name)

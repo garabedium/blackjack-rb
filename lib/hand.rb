@@ -14,9 +14,7 @@ class Hand
   end
 
   def get_score
-    @cards.reduce(0) { |score, card|
-      score + card.value
-    }
+    @cards.reduce(0) { |score, card| score + card.value }
   end
 
   def last_card
