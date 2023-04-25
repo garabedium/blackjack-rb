@@ -28,29 +28,63 @@ end
 
 # Display initial hands:
 display.hand(player: player.name, hand: player.hand.get_hand)
-display.score(score: player.hand.get_score)
+display.score(player: player.name, score: player.hand.get_score)
 
 display.hand(player: dealer.name, hand: dealer.hand.get_hand)
-display.score(score: dealer.hand.get_score)
+display.score(player: dealer.name, score: dealer.hand.get_score)
 
 while game_over == false
-  display.player_prompt
-  player_input = gets.chomp.downcase
-
-  if player_input == "h"
-    player.hit(card: deck.deal_card)
-    display.hit_card(card: player.hand.last_card.text)
-    display.score(score: player.hand.get_score)
+  # Player's turn:
+  if !player.stands
+    display.player_prompt
+    player_input = gets.chomp.downcase
     display.divider
-  elsif player_input == "s"
-    player.stand
-    puts display.player_stands(player: player.name, score: player.hand.get_score)
-  else
-    display.invalid_input
+
+    if player_input == "h"
+      player.hit(card: deck.deal_card)
+      display.hit(player: player.name, card: player.hand.last_card.text)
+      display.score(player: player.name, score: player.hand.get_score)
+    elsif player_input == "s"
+      player.stand
+      display.player_stands(player: player.name)
+      display.score(player: player.name, score: player.hand.get_score)
+    else
+      display.invalid_input
+    end
   end
 
+  # Player busts:
   if player.hand.get_score > 21
+    player.bust
     display.player_busts(player: player.name)
+    display.player_wins(player: dealer.name)
+    game_over = true    
+  end
+
+  # Dealer's turn. Hit until score is > 17, else, stand:
+  if player.stands
+    if dealer.hand.get_score < 17
+      while dealer.hand.get_score < 17
+        dealer.hit(card: deck.deal_card)
+        display.hit(player: dealer.name, card: dealer.hand.last_card.text)
+        display.score(player: dealer.name, score: dealer.hand.get_score)
+      end
+    else
+      dealer.stand
+      display.player_stands(player: dealer.name)
+    end
+  end
+
+  # Dealer busts:
+  if dealer.hand.get_score > 21
+    dealer.bust
+    display.player_busts(player: dealer.name)
+    display.player_wins(player: player.name)
+    game_over = true
+  end
+
+  if player.stands && dealer.stands
+    puts "compare score...."
     game_over = true
   end
 

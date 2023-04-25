@@ -6,31 +6,35 @@ class Display
 	end
 
   def hand(player:, hand:)
-    puts "#{player}: \n #{hand}"
+    puts "#{player}: #{hand}"
   end
 
-  def score(score:)
-    puts "Score: #{score} \n\n"
+  def score(player:, score:)
+    puts "#{player} score: #{score} \n\n"
   end
 
   def player_prompt
     puts "Hit or Stand (H/S):"
   end
 
-  def player_stands(player:, score:)
-    puts "#{player} stands. \n #{score(score: score)}"
+  def player_stands(player:)
+    puts "#{player} stands."
   end
 
   def player_busts(player:)
     puts "#{player} busts!"
   end
 
+  def player_wins(player:)
+    puts "#{player} wins!"
+  end
+
   def invalid_input
     puts "Invalid input, please Hit (H) or Stand (S). \n\n"
   end
 
-  def hit_card(card:)
-    puts "\nPlayer was dealt: #{card} \n"
+  def hit(player:, card:)
+    puts "#{player} was dealt: #{card} \n"
   end
 
   def divider
