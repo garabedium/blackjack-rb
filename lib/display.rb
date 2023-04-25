@@ -29,6 +29,10 @@ class Display
     puts "#{player} wins!"
   end
 
+  def game_push
+    puts "Tie! Game is a push."
+  end
+
   def invalid_input
     puts "Invalid input, please Hit (H) or Stand (S). \n\n"
   end

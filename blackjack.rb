@@ -82,8 +82,18 @@ while game_over == false
     game_over = true
   end
 
+  # Dealer and Player are done hitting:
   if player.stands && dealer.stands
-    puts "compare score...."
+    player_score = player.hand.get_score
+    dealer_score = dealer.hand.get_score
+
+    if player_score == dealer_score
+      display.game_push
+    else
+      winner = player_score > dealer_score ? player.name : dealer.name
+      display.player_wins(player: winner)
+    end
+
     game_over = true
   end
 
