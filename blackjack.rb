@@ -41,11 +41,17 @@ while game_over == false
     player.hit(card: deck.deal_card)
     display.hit_card(card: player.hand.last_card.text)
     display.score(score: player.hand.get_score)
+    display.divider
   elsif player_input == "s"
     player.stand
     puts display.player_stands(player: player.name, score: player.hand.get_score)
   else
     display.invalid_input
+  end
+
+  if player.hand.get_score > 21
+    display.player_busts(player: player.name)
+    game_over = true
   end
 
 end

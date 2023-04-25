@@ -21,6 +21,10 @@ class Display
     puts "#{player} stands. \n #{score(score: score)}"
   end
 
+  def player_busts(player:)
+    puts "#{player} busts!"
+  end
+
   def invalid_input
     puts "Invalid input, please Hit (H) or Stand (S). \n\n"
   end
