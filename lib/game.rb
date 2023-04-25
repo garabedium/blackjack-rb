@@ -1,5 +1,4 @@
 class Game
-
 	attr_reader :name
 
 	def initialize(name = 'Blackjack')

@@ -8,7 +8,7 @@ class Hand
   def get_hand
     text = ""
     @cards.each { |card|
-      text += "#{card.display_text} "
+      text += "#{card.text} "
     }
    text
   end
@@ -19,4 +19,7 @@ class Hand
     }
   end
 
+  def last_card
+    @cards[-1]
+  end
 end
