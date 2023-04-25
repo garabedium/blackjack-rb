@@ -1,5 +1,5 @@
 class Card
-  attr_reader :suit, :rank, :value, :display_text
+  attr_reader :suit, :rank, :value, :text
 
   def initialize(suit:, rank:, value:)
     @suit = suit
@@ -7,7 +7,7 @@ class Card
     @value = value
   end
 
-  def display_text
+  def text
     # Ex: 10♦
     "#{@rank}#{@suit}"
   end
