@@ -13,7 +13,7 @@ class Hand
    text
   end
 
-  def get_score
+  def score
     @cards.reduce(0) { |score, card| score + card.value }
   end
 

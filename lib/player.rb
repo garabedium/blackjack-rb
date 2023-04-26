@@ -13,7 +13,7 @@ class Player
   def take_card(card:)
     # Check for Ace before pushing card:
     if card.ace
-      temp_score = @hand.get_score + card.value
+      temp_score = @hand.score + card.value
       if temp_score > 21
         card.set_ace_value
       end
@@ -31,5 +31,9 @@ class Player
 
   def bust
     @busts = !busts
+  end
+
+  def score
+    @hand.score
   end
 end
