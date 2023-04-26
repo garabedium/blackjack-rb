@@ -27,10 +27,10 @@ end
 
 # Display initial hands:
 display.hand(player: player.name, hand: player.hand.get_hand)
-display.score(player: player.name, score: player.hand.get_score)
+display.score(player: player.name, score: player.score)
 
 display.hand(player: dealer.name, hand: dealer.hand.get_hand)
-display.score(player: dealer.name, score: dealer.hand.get_score)
+display.score(player: dealer.name, score: dealer.score)
 
 while game_over == false
   # Player's turn:
@@ -42,18 +42,18 @@ while game_over == false
     if player_input == "h"
       player.hit(card: deck.deal_card)
       display.hit(player: player.name, card: player.hand.last_card.text)
-      display.score(player: player.name, score: player.hand.get_score)
+      display.score(player: player.name, score: player.score)
     elsif player_input == "s"
       player.stand
       display.player_stands(player: player.name)
-      display.score(player: player.name, score: player.hand.get_score)
+      display.score(player: player.name, score: player.score)
     else
       display.invalid_input
     end
   end
 
   # Player busts:
-  if player.hand.get_score > 21
+  if player.score > 21
     player.bust
     display.player_busts(player: player.name)
     display.player_wins(player: dealer.name)
@@ -62,11 +62,11 @@ while game_over == false
 
   # Dealer's turn. Hit until score is > 17, else, stand:
   if player.stands
-    if dealer.hand.get_score < 17
-      while dealer.hand.get_score < 17
+    if dealer.score < 17
+      while dealer.score < 17
         dealer.hit(card: deck.deal_card)
         display.hit(player: dealer.name, card: dealer.hand.last_card.text)
-        display.score(player: dealer.name, score: dealer.hand.get_score)
+        display.score(player: dealer.name, score: dealer.score)
       end
     else
       dealer.stand
@@ -75,7 +75,7 @@ while game_over == false
   end
 
   # Dealer busts:
-  if dealer.hand.get_score > 21
+  if dealer.score > 21
     dealer.bust
     display.player_busts(player: dealer.name)
     display.player_wins(player: player.name)
@@ -84,8 +84,8 @@ while game_over == false
 
   # Dealer and Player are done hitting:
   if player.stands && dealer.stands
-    player_score = player.hand.get_score
-    dealer_score = dealer.hand.get_score
+    player_score = player.score
+    dealer_score = dealer.score
 
     if player_score == dealer_score
       display.game_push
@@ -95,6 +95,15 @@ while game_over == false
     end
 
     game_over = true
+  end
+
+  if game_over
+    puts "Play again? (Y/N)"
+    player_restart = gets.chomp.downcase
+
+    if player_restart == "y"
+      load($0)
+    end
   end
 
 end
