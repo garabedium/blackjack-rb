@@ -5,7 +5,7 @@ class Hand
     @cards = []
   end
 
-  def get_hand
+  def text
     text = ""
     @cards.each { |card|
       text += "#{card.text} "

@@ -2,6 +2,7 @@ class Deck
 
   attr_reader :deck
 
+  DECK_LIMIT = 52
 	SUITS = ['♦', '♣', '♠', '♥']
 	RANKS = [2,3,4,5,6,7,8,9,10,'J','Q','K','A']
   FACE_CARD_VALUE = 10
