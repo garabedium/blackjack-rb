@@ -17,7 +17,7 @@ game_over = false
 
 display.welcome(name: game.name)
 
-# Deal initial hands to players one at a time, alternating between player, dealer:
+# Deal initial hands to players one at a time, alternating between player, dealer: 
 deal_count = 0;
 while (deal_count < 2)
   player.take_card(card: deck.deal_card)
@@ -26,10 +26,10 @@ while (deal_count < 2)
 end
 
 # Display initial hands:
-display.hand(player: player.name, hand: player.hand.get_hand)
+display.hand(player: player.name, hand: player.hand.text)
 display.score(player: player.name, score: player.score)
 
-display.hand(player: dealer.name, hand: dealer.hand.get_hand)
+display.hand(player: dealer.name, hand: dealer.hand.text)
 display.score(player: dealer.name, score: dealer.score)
 
 while game_over == false
