@@ -1,3 +1,4 @@
+# Person or computer playing the game
 
 class Player
   attr_reader :name, :stands, :busts
