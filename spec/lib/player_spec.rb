@@ -1,5 +1,5 @@
 require "spec_helper"
-require_relative "../lib/player"
+require_relative "../../lib/player"
 
 describe Player do
   let(:player1) { Player.new(name: 'Doc') }

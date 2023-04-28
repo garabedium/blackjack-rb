@@ -1,9 +1,8 @@
+# Handles all terminal puts:
 class Display
-  # Handles all terminal puts:
-
-  def welcome(name:)
-		puts "Let's play #{name}!\n\n"
-	end
+  def welcome
+    puts "Let's play Blackjack!\n\n"
+  end
 
   def hand(player:, hand:)
     puts "#{player}: #{hand}"
@@ -13,8 +12,8 @@ class Display
     puts "#{player} score: #{score} \n\n"
   end
 
-  def player_prompt
-    puts "Hit or Stand (H/S):"
+  def hit_stand_prompt
+    puts '> Hit or Stand (H/S):'
   end
 
   def player_stands(player:)
@@ -30,7 +29,11 @@ class Display
   end
 
   def game_push
-    puts "Tie! Game is a push."
+    puts 'Tie! Game is a push.'
+  end
+
+  def restart_prompt
+    puts "\n> Play again? (Y/N):"
   end
 
   def invalid_input
@@ -44,5 +47,4 @@ class Display
   def divider
     puts "\n"
   end
-
 end
