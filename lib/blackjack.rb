@@ -49,13 +49,9 @@ class Blackjack
       @display.divider
 
       if player_input == 'h'
-        @player.hit(card: @deck.deal_card)
-        @display.hit(player: @player.name, card: @player.hand.last_card.text)
-        @display.score(player: @player.name, score: @player.score)
+        player_hits(player: @player)
       elsif player_input == 's'
-        @player.stand
-        @display.player_stands(player: @player.name)
-        @display.score(player: @player.name, score: @player.score)
+        player_stands(player: @player)
       else
         @display.invalid_input
       end
@@ -68,36 +64,20 @@ class Blackjack
   def dealer_turn
     # return unless @player.stands
     if @player.stands
-      while @dealer.score < 17
-        @dealer.hit(card: @deck.deal_card)
-        @display.hit(player: @dealer.name, card: @dealer.hand.last_card.text)
-        @display.score(player: @dealer.name, score: @dealer.score)
-      end
+      player_hits(player: @dealer) while @dealer.score < 17
     elsif @dealer.score > 17
-      @dealer.stand
-      @display.player_stands(player: @dealer.name)
+      player_stands(player: @dealer)
     end
     bust?(player: @dealer)
   end
 
   def game_winner
-    player_score = @player.score
-    dealer_score = @dealer.score
-
     # Tie game, else calc winner:
-    if player_score == dealer_score
+    if @player.score == @dealer.score
       @display.game_push
     else
-      if @dealer.busts && @player.busts || @player.busts
-        winner = @dealer.name
-      elsif @dealer.busts && !@player.busts
-        winner = @player.name
-      else
-        winner = player_score > dealer_score ? @player.name : @dealer.name
-      end
-      @display.player_wins(player: winner)
+      @display.player_wins(player: calc_winner)
     end
-
     @game_over = true
   end
 
@@ -107,6 +87,28 @@ class Blackjack
     player.bust
     @display.player_busts(player: player.name)
     @game_over = true
+  end
+
+  def player_hits(player:)
+    player.hit(card: @deck.deal_card)
+    @display.hit(player: player.name, card: player.hand.last_card.text)
+    @display.score(player: player.name, score: player.score)
+  end
+
+  def player_stands(player:)
+    player.stand
+    @display.player_stands(player: player.name)
+    @display.score(player: player.name, score: player.score)
+  end
+
+  def calc_winner
+    if (@dealer.busts && @player.busts) || @player.busts
+      @dealer.name
+    elsif @dealer.busts && !@player.busts
+      @player.name
+    else
+      @player.score > @dealer.score ? @player.name : @dealer.name
+    end
   end
 
   def game_restart
