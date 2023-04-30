@@ -1,6 +1,7 @@
 # Handles all terminal puts:
 class Display
   PROMPT_BRACKET = '>'.freeze
+  NEW_LINE = "\n".freeze
   MESSAGES = {
     welcome: "Let's play Blackjack!",
     hand: '%<player>s: %<hand>s',
@@ -17,11 +18,11 @@ class Display
 
   def message(key:, params: Hash, breaks: 0)
     message = MESSAGES[key.to_sym] % params
-    line_breaks = "\n" * breaks
+    line_breaks = NEW_LINE * breaks
     puts "#{message}#{line_breaks}"
   end
 
   def divider
-    puts "\n"
+    puts NEW_LINE
   end
 end
