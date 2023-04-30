@@ -1,47 +1,24 @@
 # Handles all terminal puts:
 class Display
-  def welcome
-    puts "Let's play Blackjack!\n\n"
-  end
+  PROMPT_BRACKET = '>'.freeze
+  MESSAGES = {
+    welcome: "Let's play Blackjack!",
+    hand: '%<player>s: %<hand>s',
+    score: '%<player>s score: %<score>s',
+    hit: '%<player>s was dealt: %<card>s',
+    player_stands: '%<player>s stands.',
+    player_busts: '%<player>s busts!',
+    player_wins: '%<player>s wins!',
+    game_tie: 'Tie! Game is a push.',
+    invalid_player_turn: 'Invalid input, please Hit (H) or Stand (S)',
+    prompt_hit_stand: "#{PROMPT_BRACKET} Hit or Stand (H/S):",
+    prompt_restart: "#{PROMPT_BRACKET} Play again? (Y/N):"
+  }.freeze
 
-  def hand(player:, hand:)
-    puts "#{player}: #{hand}"
-  end
-
-  def score(player:, score:)
-    puts "#{player} score: #{score} \n\n"
-  end
-
-  def hit_stand_prompt
-    puts '> Hit or Stand (H/S):'
-  end
-
-  def player_stands(player:)
-    puts "#{player} stands."
-  end
-
-  def player_busts(player:)
-    puts "#{player} busts!"
-  end
-
-  def player_wins(player:)
-    puts "#{player} wins!"
-  end
-
-  def game_push
-    puts 'Tie! Game is a push.'
-  end
-
-  def restart_prompt
-    puts "\n> Play again? (Y/N):"
-  end
-
-  def invalid_input
-    puts "Invalid input, please Hit (H) or Stand (S). \n\n"
-  end
-
-  def hit(player:, card:)
-    puts "#{player} was dealt: #{card} \n"
+  def message(key:, params: Hash, breaks: 0)
+    message = MESSAGES[key.to_sym] % params
+    line_breaks = "\n" * breaks
+    puts "#{message}#{line_breaks}"
   end
 
   def divider

@@ -1,5 +1,6 @@
+# Playing card class
 class Card
-  attr_reader :suit, :rank, :value, :text, :ace
+  attr_reader :suit, :rank, :value, :ace
   attr_writer :set_ace_value
 
   def initialize(suit:, rank:, value:, ace: false)
