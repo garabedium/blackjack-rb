@@ -42,7 +42,7 @@ class Blackjack
     end
   end
 
-  def player_turn
+  def player_turn # rubocop:disable Metrics/MethodLength
     until @player.stands || @player.busts
       @display.message(key: 'prompt_hit_stand')
       player_input = user_input
@@ -95,7 +95,6 @@ class Blackjack
 
   def player_stands(player:)
     player.stand
-
     @display.message(key: 'player_stands', params: { player: player.name })
     @display.message(key: 'score', params: { player: player.name, score: player.score }, breaks: 2)
   end

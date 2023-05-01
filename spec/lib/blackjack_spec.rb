@@ -20,10 +20,12 @@ describe Blackjack do
     expect(dealer.hand.cards.size).to be(2)
   end
 
-  it 'displays the hand' do
+  it 'displays the player hands' do
     game.deal_hands
-    hand = ""
-    expect { game.display_hand(player: player) }.to output('A♥ 9♠').to_stdout # rubocop:disable Style/HashSyntax
-  end
+    player_hand = "#{player.name}: #{player.hand.text}\n#{player.name} score: #{player.score}\n\n"
+    dealer_hand = "#{dealer.name}: #{dealer.hand.text}\n#{dealer.name} score: #{dealer.score}\n\n"
 
+    expect { game.display_hand(player:) }.to output(player_hand).to_stdout
+    expect { game.display_hand(player: dealer) }.to output(dealer_hand).to_stdout
+  end
 end
