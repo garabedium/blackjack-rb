@@ -10,4 +10,5 @@ require_relative 'lib/dealer'
 require_relative 'lib/display'
 
 # Lanch Blackjack game:
-Blackjack.new
+game = Blackjack.new
+game.init_game

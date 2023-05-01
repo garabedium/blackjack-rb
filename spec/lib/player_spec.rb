@@ -1,5 +1,5 @@
-require "spec_helper"
-require_relative "../../lib/player"
+require 'spec_helper'
+require_relative '../../lib/player'
 
 describe Player do
   let(:player1) { Player.new(name: 'Doc') }
@@ -16,7 +16,7 @@ describe Player do
   end
 
   it "changes the Ace's value based on player's current score" do
-    aces = deck.deck.find_all { |card| card.ace }
+    aces = deck.deck.find_all(&:ace)
     player1.hit(card: aces[0])
     expect(player1.score).to be(aces[0].value)
     player1.hit(card: aces[1])

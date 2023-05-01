@@ -6,11 +6,9 @@ class Hand
   end
 
   def text
-    text = ""
-    @cards.each { |card|
-      text += "#{card.text} "
-    }
-   text
+    text = ''
+    @cards.each { |card| text += "#{card.text} " }
+    text.strip
   end
 
   def score
