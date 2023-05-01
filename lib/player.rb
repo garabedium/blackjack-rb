@@ -15,9 +15,7 @@ class Player
     # Check for Ace before pushing card:
     if card.ace
       temp_score = @hand.score + card.value
-      if temp_score > 21
-        card.set_ace_value
-      end
+      card.set_ace_value if temp_score > 21
     end
     @hand.cards.push(card)
   end
