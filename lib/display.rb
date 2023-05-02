@@ -1,7 +1,9 @@
-# Handles all terminal puts:
+# frozen_string_literal: true
+
+# Handles all strings and terminal output:
 class Display
-  PROMPT_BRACKET = '>'.freeze
-  NEW_LINE = "\n".freeze
+  PROMPT_BRACKET = '>'
+  NEW_LINE = "\n"
   MESSAGES = {
     welcome: "Let's play Blackjack!",
     hand: '%<player>s: %<hand>s',
