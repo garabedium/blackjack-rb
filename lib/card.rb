@@ -1,4 +1,6 @@
-# Playing card class
+# frozen_string_literal: true
+
+# Playing Card
 class Card
   attr_reader :suit, :rank, :value, :ace
   attr_writer :set_ace_value
@@ -18,5 +20,4 @@ class Card
   def set_ace_value(value: 1)
     @value = value
   end
-
 end

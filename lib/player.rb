@@ -1,5 +1,6 @@
-# Person or computer playing the game
+# frozen_string_literal: true
 
+# Person or computer playing the game
 class Player
   attr_reader :name, :stands, :busts
   attr_accessor :hand

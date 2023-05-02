@@ -1,4 +1,6 @@
-# Blackjack gameplay logic:
+# frozen_string_literal: true
+
+# Blackjack gameplay:
 class Blackjack
   attr_reader :deck, :player, :dealer, :display, :game_over
 

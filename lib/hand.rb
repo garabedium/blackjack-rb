@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Cards that a Player is holding
 class Hand
   attr_reader :cards
 
@@ -6,9 +9,7 @@ class Hand
   end
 
   def text
-    text = ''
-    @cards.each { |card| text += "#{card.text} " }
-    text.strip
+    @cards.map(&:text).join(' ')
   end
 
   def score
