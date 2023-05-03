@@ -11,6 +11,7 @@ describe Blackjack do
   let(:game) { Blackjack.new }
   let(:player) { game.player }
   let(:dealer) { game.dealer }
+  let(:deck) { game.deck }
 
   it 'deal hands to both players' do
     expect(player.hand.cards.size).to be(0)
@@ -27,5 +28,57 @@ describe Blackjack do
 
     expect { game.display_hand(player:) }.to output(player_hand).to_stdout
     expect { game.display_hand(player: dealer) }.to output(dealer_hand).to_stdout
+  end
+
+  it 'deals the player another card and displays the dealt card' do
+    game.deal_hands
+    expect(player.hand.cards.size).to eq(2)
+
+    expect { game.player_hits(player:, card: deck.deal_card) }
+      .to output(game.display.message(key: 'hit', params: { player: player.name, card: player.hand.last_card.text }))
+      .to_stdout
+
+    expect(player.hand.cards.size).to eq(3)
+  end
+
+  it "deals the dealer cards until dealer's score is greater than or equal to 17'" do
+    cards = deck.deck.find_all { |card| card.value < 4 }
+    game.player_hits(player: dealer, card: cards[-1])
+    game.player_hits(player: dealer, card: cards[-1])
+    expect(dealer.score).to be < Blackjack::DEALER_HAND_MIN
+    player.stand
+    game.dealer_turn
+    expect(dealer.score).to be >= Blackjack::DEALER_HAND_MIN
+  end
+
+  it 'does not deal the dealer additional cards if starting hand is greater than or equal to 17' do
+    card_count = 2
+    dealer.hit(card: deck.deck.find { |card| card.value == 10 })
+    dealer.hit(card: deck.deck.find { |card| card.value == 7 })
+    expect(dealer.hand.cards.size).to eq(card_count)
+    game.dealer_turn
+    expect(dealer.hand.cards.size).to eq(card_count)
+  end
+
+  it 'displays a tie game if both players have the same score' do
+    player.hit(card: deck.deck.find { |card| card.value == 10 })
+    player.hit(card: deck.deck.find { |card| card.value == 7 })
+    dealer.hit(card: deck.deck.find { |card| card.value == 10 })
+    dealer.hit(card: deck.deck.find { |card| card.value == 7 })
+    expect(player.score).to be(17)
+    expect(dealer.score).to be(17)
+
+    expect { game.game_winner }.to output(game.display.message(key: 'game_tie', breaks: 2)).to_stdout
+  end
+
+  it 'returns a Player win if Player scores higher than Dealer' do
+    player.hit(card: deck.deck.find { |card| card.value == 10 })
+    player.hit(card: deck.deck.find { |card| card.value == 10 })
+    dealer.hit(card: deck.deck.find { |card| card.value == 10 })
+    dealer.hit(card: deck.deck.find { |card| card.value == 9 })
+
+    expect(player.score).to be(20)
+    expect(dealer.score).to be(19)
+    expect(game.calc_winner).to be(player.name)
   end
 end
