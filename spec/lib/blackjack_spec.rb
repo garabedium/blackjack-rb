@@ -79,6 +79,48 @@ describe Blackjack do
 
     expect(player.score).to be(20)
     expect(dealer.score).to be(19)
+    winner = game.calc_winner
+    expect { game.game_winner }
+      .to output(game.display.message(key: 'player_wins', params: { player: winner }, breaks: 2))
+      .to_stdout
+
+    expect(winner).to be(player.name)
+  end
+
+  it 'returns a Dealer win if Player busts' do
+    player.bust
+
+    expect(player.busts).to be true
+    expect(game.calc_winner).to be(dealer.name)
+  end
+
+  it 'returns a Player win if Dealer busts' do
+    dealer.bust
+
+    expect(dealer.busts).to be true
     expect(game.calc_winner).to be(player.name)
+  end
+
+  it 'returns a Dealer win if both Dealer and Player bust' do
+    player.bust
+    dealer.bust
+
+    expect(player.busts).to be true
+    expect(dealer.busts).to be true
+    expect(game.calc_winner).to be(dealer.name)
+  end
+
+  it 'ends game if player busts' do
+    player.hit(card: deck.deck.find { |card| card.value == 10 })
+    player.hit(card: deck.deck.find { |card| card.value == 10 })
+    player.hit(card: deck.deck.find { |card| card.value == 2 })
+
+    expect(game.game_over).to be false
+
+    expect { game.bust?(player:) }
+      .to output(game.display.message(key: 'player_busts', params: { player: player.name }))
+      .to_stdout
+
+    expect(game.game_over).to be true
   end
 end
