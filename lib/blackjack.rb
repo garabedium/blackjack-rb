@@ -4,6 +4,9 @@
 class Blackjack
   attr_reader :deck, :player, :dealer, :display, :game_over
 
+  DEALER_HAND_MIN = 17
+  BLACKJACK_MAX = 21
+
   def initialize
     @deck = Deck.new
     @player = Player.new
@@ -51,7 +54,7 @@ class Blackjack
       @display.divider
 
       if player_input == 'h'
-        player_hits(player: @player)
+        player_hits(player: @player, card: @deck.deal_card)
       elsif player_input == 's'
         player_stands(player: @player)
       else
@@ -65,8 +68,8 @@ class Blackjack
   # Hit until score is > 17, else, stand:
   def dealer_turn
     if @player.stands
-      player_hits(player: @dealer) while @dealer.score < 17
-    elsif @dealer.score > 17
+      player_hits(player: @dealer, card: @deck.deal_card) while @dealer.score < DEALER_HAND_MIN
+    elsif @dealer.score >= DEALER_HAND_MIN
       player_stands(player: @dealer)
     end
     bust?(player: @dealer)
@@ -82,15 +85,15 @@ class Blackjack
   end
 
   def bust?(player:)
-    return unless player.score > 21
+    return unless player.score > BLACKJACK_MAX
 
     player.bust
     @display.message(key: 'player_busts', params: { player: player.name })
     @game_over = true
   end
 
-  def player_hits(player:)
-    player.hit(card: @deck.deal_card)
+  def player_hits(player:, card:)
+    player.hit(card:)
     @display.message(key: 'hit', params: { player: player.name, card: player.hand.last_card.text })
     @display.message(key: 'score', params: { player: player.name, score: player.score }, breaks: 2)
   end
@@ -106,7 +109,7 @@ class Blackjack
   end
 
   def calc_winner
-    if (@dealer.busts && @player.busts) || @player.busts
+    if @player.busts
       @dealer.name
     elsif @dealer.busts && !@player.busts
       @player.name
