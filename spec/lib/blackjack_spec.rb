@@ -39,32 +39,34 @@ describe Blackjack do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  it 'deal hands to both players' do
-    expect(player.hand.cards.size).to be(0)
-    expect(dealer.hand.cards.size).to be(0)
-    game.deal_hands
-    expect(player.hand.cards.size).to be(2)
-    expect(dealer.hand.cards.size).to be(2)
-  end
+  describe ':deal_hands' do
+    it 'deal hands to both players' do
+      expect(player.hand.cards.size).to be(0)
+      expect(dealer.hand.cards.size).to be(0)
+      game.deal_hands
+      expect(player.hand.cards.size).to be(2)
+      expect(dealer.hand.cards.size).to be(2)
+    end
 
-  it 'displays the player hands' do
-    game.deal_hands
-    player_hand = "#{player.name}: #{player.hand.text}\n#{player.name} score: #{player.score}\n\n"
-    dealer_hand = "#{dealer.name}: #{dealer.hand.text}\n#{dealer.name} score: #{dealer.score}\n\n"
+    it 'displays the player hands' do
+      game.deal_hands
+      player_hand = "#{player.name}: #{player.hand.text}\n#{player.name} score: #{player.score}\n\n"
+      dealer_hand = "#{dealer.name}: #{dealer.hand.text}\n#{dealer.name} score: #{dealer.score}\n\n"
 
-    expect { game.display_hand(player:) }.to output(player_hand).to_stdout
-    expect { game.display_hand(player: dealer) }.to output(dealer_hand).to_stdout
-  end
+      expect { game.display_hand(player:) }.to output(player_hand).to_stdout
+      expect { game.display_hand(player: dealer) }.to output(dealer_hand).to_stdout
+    end
 
-  it 'deals the player another card and displays the dealt card' do
-    game.deal_hands
-    expect(player.hand.cards.size).to eq(2)
+    it 'deals the player another card and displays the dealt card' do
+      game.deal_hands
+      expect(player.hand.cards.size).to eq(2)
 
-    expect { game.player_hits(player:, card: deck.deal_card) }
-      .to output(game.display.message(key: 'hit', params: { player: player.name, card: player.hand.last_card.text }))
-      .to_stdout
+      expect { game.player_hits(player:, card: deck.deal_card) }
+        .to output(game.display.message(key: 'hit', params: { player: player.name, card: player.hand.last_card.text }))
+        .to_stdout
 
-    expect(player.hand.cards.size).to eq(3)
+      expect(player.hand.cards.size).to eq(3)
+    end
   end
 
   describe ':dealer_turn' do

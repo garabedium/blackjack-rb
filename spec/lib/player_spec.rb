@@ -22,5 +22,4 @@ describe Player do
     player1.hit(card: aces[1])
     expect(player1.score).to be(aces[0].value + 1)
   end
-
 end
