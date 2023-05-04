@@ -1,9 +1,9 @@
-require "spec_helper"
-require_relative "../../lib/card"
-require_relative "../../lib/deck"
+require 'spec_helper'
+require_relative '../../lib/card'
+require_relative '../../lib/deck'
 
 describe Card do
-  let(:ace) { Card.new(suit: "♦", rank: "A", value: 11, ace: true) }
+  let(:ace) { Card.new(suit: '♦', rank: 'A', value: 11, ace: true) }
 
   it "returns the card's rank and suit" do
     expect(ace.text).to eq("#{Deck::RANKS[-1]}#{Deck::SUITS[0]}")
