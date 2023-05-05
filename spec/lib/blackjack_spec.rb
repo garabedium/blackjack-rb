@@ -14,27 +14,29 @@ describe Blackjack do # rubocop:disable Metrics/BlockLength
   let(:dealer) { game.dealer }
   let(:deck) { game.deck }
 
-  describe ':user_input' do
-    it 'displays a message when invalid user input is entered' do
-      allow(game).to receive(:user_input).and_return('x', 's')
-
-      expect { game.init_game }
-        .to output(game.display.message(key: 'invalid_player_turn'))
-        .to_stdout
+  describe ':welcome' do
+    it 'displays a welcome message to the player' do
+      expect { game.welcome }.to output(game.display.message(key: 'welcome', breaks: 2)).to_stdout
     end
+  end
 
-    it 'displays a prompt for user to hit or stand' do
+  describe ':player_turn' do
+    it 'displays a prompt for player to hit or stand' do
       allow(game).to receive(:user_input).and_return('s')
 
-      expectation = expect { game.init_game }
-      expectation.to output(game.display.message(key: 'prompt_hit_stand')).to_stdout
-      expectation.to output(game.display.message(key: 'player_stands', params: { player: player.name })).to_stdout
+      expect { game.player_turn }.to output(game.display.message(key: 'prompt_hit_stand')).to_stdout
+    end
+
+    it 'displays a message when invalid player input is entered' do
+      allow(game).to receive(:user_input).and_return('x', 's')
+
+      expect { game.player_turn }.to output(game.display.message(key: 'invalid_player_turn')).to_stdout
     end
 
     it "deals a card when user types 'h' until user busts" do
       allow(game).to receive(:user_input).and_return('h')
 
-      expect { game.init_game }
+      expect { game.player_turn }
         .to output(game.display.message(key: 'player_busts', params: { player: player.name })).to_stdout
     end
   end
@@ -148,7 +150,7 @@ describe Blackjack do # rubocop:disable Metrics/BlockLength
     end
   end
 
-  describe 'bust?' do
+  describe ':bust?' do
     it 'ends game if player busts' do
       player.hit(card: deck.deck.find { |card| card.value == 10 })
       player.hit(card: deck.deck.find { |card| card.value == 10 })
@@ -161,6 +163,14 @@ describe Blackjack do # rubocop:disable Metrics/BlockLength
         .to_stdout
 
       expect(game.game_over).to be true
+    end
+  end
+
+  describe ':game_restart' do
+    it 'displays a prompt for player to restart the game' do
+      allow(game).to receive(:user_input)
+
+      expect { game.game_restart }.to output(game.display.message(key: 'prompt_restart')).to_stdout
     end
   end
 end
