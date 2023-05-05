@@ -10,4 +10,7 @@ require_relative 'lib/display'
 
 # Lanch Blackjack game:
 game = Blackjack.new
-game.init_game
+game.welcome
+game.deal_hands
+game.game_loop
+game.game_restart

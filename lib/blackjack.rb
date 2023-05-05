@@ -15,13 +15,8 @@ class Blackjack
     @game_over = false
   end
 
-  def init_game
+  def welcome
     @display.message(key: 'welcome', breaks: 2)
-    deal_hands
-    display_hand(player: @player)
-    display_hand(player: @dealer)
-    game_loop
-    game_restart
   end
 
   def deal_hands
@@ -31,6 +26,8 @@ class Blackjack
       @dealer.take_card(card: @deck.deal_card)
       deal_count += 1
     end
+    display_hand(player: @player)
+    display_hand(player: @dealer)
   end
 
   # Displays hand and score for specific player:
