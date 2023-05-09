@@ -15,6 +15,12 @@ class Deck
     K: FACE_CARD_VALUE,
     A: ACE_CARD_VALUE
   }.freeze
+  SUIT_COLORS = {
+    ♦: :blue,
+    ♣: :green,
+    ♠: :black,
+    ♥: :red
+  }.freeze
 
   def initialize
     @deck = build_deck.shuffle
@@ -27,7 +33,7 @@ class Deck
         # If a face card, look up value from FACE_CARDS:
         card_value = rank.instance_of?(String) ? FACE_CARDS[rank.to_sym] : rank
         ace = card_value == FACE_CARDS[:A]
-        deck.push(Card.new(suit:, rank:, value: card_value, ace:))
+        deck.push(Card.new(suit:, rank:, value: card_value, color: SUIT_COLORS[suit.to_sym], ace:))
       end
     end
     deck
