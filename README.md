@@ -1,16 +1,9 @@
 # Blackjack Ruby
-Blackjack Ruby terminal game
+Blackjack terminal game built in Ruby.
 
-## User Stories
-
-### Deal initial hand
-* Cards dealt from shuffled deck of 52 cards
-* Output `Player was dealt CARD` for each card the player receives.
-* Output `Dealer was dealt CARD` for each card the dealer receives.
-
-## Classes
-- Game
-- Deck
-- Card
-- Player
-- Dealer is a type of Player
+## Gameplay
+* Cards dealt from shuffled deck of 52 cards.
+* Player and Dealer dealt two cards.
+* Player can hit or stand.
+* Dealer automatically hits until hand is greater or equal to 17.
+* Ace default value is 11. Subsequent Ace value is 1.
