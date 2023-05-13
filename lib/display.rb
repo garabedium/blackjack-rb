@@ -13,9 +13,9 @@ class Display
     player_busts: '%<player>s busts!',
     player_wins: '%<player>s wins!',
     game_tie: 'Tie! Game is a push.',
-    invalid_player_turn: 'Invalid input, please Hit (H) or Stand (S)'.bold,
-    prompt_hit_stand: "#{PROMPT_BRACKET} Hit or Stand (H/S):",
-    prompt_restart: "#{PROMPT_BRACKET} Play again? (Y/N):"
+    invalid_player_turn: 'Invalid input, please Hit (H) or Stand (S)'.red,
+    prompt_hit_stand: "#{PROMPT_BRACKET} #{'Hit or Stand (H/S)'.bold}:",
+    prompt_restart: "#{PROMPT_BRACKET} #{'Play again?'.bold} (Y/N):"
   }.freeze
 
   def message(key:, params: Hash, breaks: 0)
