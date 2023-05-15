@@ -12,5 +12,9 @@ require_relative 'lib/display'
 game = Blackjack.new
 game.welcome
 game.deal_hands
+game.player.show_hand
+game.player.show_score
+game.dealer.show_faceup
+game.dealer.show_score_faceup
 game.game_loop
 game.game_restart

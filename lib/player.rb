@@ -10,6 +10,7 @@ class Player
     @hand = Hand.new
     @stands = stands
     @busts = busts
+    @display = Display.new
   end
 
   def take_card(card:)
@@ -35,5 +36,13 @@ class Player
 
   def score
     @hand.score
+  end
+
+  def show_hand
+    @display.message(key: 'hand', params: { player: @name, hand: @hand.text })
+  end
+
+  def show_score
+    @display.message(key: 'score', params: { player: @name, score: }, breaks: 2)
   end
 end

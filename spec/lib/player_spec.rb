@@ -1,9 +1,9 @@
 require 'spec_helper'
-require_relative '../../lib/player'
 
 describe Player do
   let(:player1) { Player.new(name: 'Doc') }
   let(:deck) { Deck.new }
+  let(:display) { Display.new }
 
   it "shows the player's name" do
     expect(player1.name).to eq('Doc')
@@ -21,5 +21,13 @@ describe Player do
     expect(player1.score).to be(aces[0].value)
     player1.hit(card: aces[1])
     expect(player1.score).to be(aces[0].value + 1)
+  end
+
+  it "displays the player's hand" do
+    player1.hit(card: deck.deal_card)
+    player1.hit(card: deck.deal_card)
+    player_hand = display.message(key: 'hand', params: { player: player1.name, hand: player1.hand.text }, breaks: 2)
+
+    expect { player1.show_hand }.to output(player_hand).to_stdout
   end
 end
