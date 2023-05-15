@@ -1,8 +1,5 @@
 require 'spec_helper'
 
-require_relative '../../lib/card'
-require_relative '../../lib/deck'
-
 describe Card do
   let(:ace) { Card.new(suit: '♦', rank: 'A', value: 11, ace: true) }
 

@@ -27,14 +27,6 @@ class Blackjack
       @dealer.take_card(card: @deck.deal_card)
       deal_count += 1
     end
-    display_hand(player: @player)
-    display_hand(player: @dealer)
-  end
-
-  # Displays hand and score for specific player:
-  def display_hand(player:)
-    @display.message(key: 'hand', params: { player: player.name, hand: player.hand.text })
-    @display.message(key: 'score', params: { player: player.name, score: player.score }, breaks: 2)
   end
 
   def game_loop
@@ -77,7 +69,9 @@ class Blackjack
     if @player.score == @dealer.score
       @display.message(key: 'game_tie', breaks: 2)
     else
-      @display.message(key: 'player_wins', params: { player: calc_winner }, breaks: 2)
+      winner = calc_winner
+      @display.message(key: 'player_wins', params: { player: winner.name })
+      @display.message(key: 'hand', params: { player: winner.name, hand: winner.hand.text }, breaks: 2)
     end
     @game_over = true
   end
@@ -86,7 +80,7 @@ class Blackjack
     return unless player.score > BLACKJACK_MAX
 
     player.bust
-    @display.message(key: 'player_busts', params: { player: player.name })
+    @display.message(key: 'player_busts', params: { player: player.name }, breaks: 2)
     @game_over = true
   end
 
@@ -108,11 +102,11 @@ class Blackjack
 
   def calc_winner
     if @player.busts
-      @dealer.name
+      @dealer
     elsif @dealer.busts && !@player.busts
-      @player.name
+      @player
     else
-      @player.score > @dealer.score ? @player.name : @dealer.name
+      @player.score > @dealer.score ? @player : @dealer
     end
   end
 

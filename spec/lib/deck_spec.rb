@@ -1,6 +1,4 @@
 require 'spec_helper'
-require_relative '../../lib/deck'
-require_relative '../../lib/card'
 
 describe Deck do
   let(:deck) { Deck.new }
