@@ -13,8 +13,6 @@ class Card
     @color = color
   end
 
-  # faceup, facedown
-  # do we need to store color, or can we just look it up here? (removes )
   def text
     # Ex: 10♦
     "#{@rank}#{@suit}".colorize(color: @color)

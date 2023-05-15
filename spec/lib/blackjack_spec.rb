@@ -42,15 +42,6 @@ describe Blackjack do # rubocop:disable Metrics/BlockLength
       expect(dealer.hand.cards.size).to be(2)
     end
 
-    # it 'displays the player hands' do
-    #   game.deal_hands
-    #   player_hand = "#{player.name}: #{player.hand.text}\n#{player.name} score: #{player.score}\n\n"
-    #   dealer_hand = "#{dealer.name}: #{dealer.hand.text_faceup}\n#{dealer.name} score: #{dealer.hand.score_faceup}\n\n"
-
-    #   expect { game }.to output(player_hand).to_stdout
-    #   expect { game }.to output(dealer_hand).to_stdout
-    # end
-
     it 'deals the player another card and displays the dealt card' do
       game.deal_hands
       expect(player.hand.cards.size).to eq(2)
