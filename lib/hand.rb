@@ -12,7 +12,7 @@ class Hand
     @cards.map(&:text).join(' ')
   end
 
-  def text_faceup
+  def text_facedown
     hole_card = ' [?]'
     @cards.first.text.concat(hole_card)
   end
@@ -21,7 +21,7 @@ class Hand
     @cards.reduce(0) { |score, card| score + card.value }
   end
 
-  def score_faceup
+  def score_facedown
     @cards.first.value
   end
 
