@@ -14,7 +14,7 @@ game.welcome
 game.deal_hands
 game.player.show_hand
 game.player.show_score
-game.dealer.show_faceup
-game.dealer.show_score_faceup
+game.dealer.show_hand_facedown
+game.dealer.show_score_facedown
 game.game_loop
 game.game_restart

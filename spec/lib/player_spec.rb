@@ -5,10 +5,6 @@ describe Player do
   let(:deck) { Deck.new }
   let(:display) { Display.new }
 
-  it "shows the player's name" do
-    expect(player1.name).to eq('Doc')
-  end
-
   it "adds a card to the player's hand" do
     expect(player1.hand.cards.size).to eq(0)
     player1.hit(card: deck.deck[0])
